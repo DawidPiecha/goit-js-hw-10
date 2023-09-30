@@ -15,6 +15,7 @@ const fetchBreeds = () => {
       return data;
     })
     .catch(error => {
+      console.error('Błąd w fetchBreeds:', error);
       const errorMessageText = `${errorMessage.textContent} ${error}`;
       Notiflix.Notify.failure(errorMessageText);
     });
@@ -25,10 +26,11 @@ const fetchCatByBreed = breedId => {
     .get(apiUrlWithId)
     .then(response => {
       const data = response.data;
-      console.log('Dane :', data);
+      console.log('Dane kota:', data);
       return data;
     })
     .catch(error => {
+      console.error('Błąd w fetchCatByBreed', error);
       const errorMessageText = `${errorMessage.textContent} ${error}`;
       Notiflix.Notify.failure(errorMessageText);
     });

@@ -1,13 +1,15 @@
 import { fetchBreeds, fetchCatByBreed } from './cat-api.js';
-
+import axios from 'axios';
+axios.defaults.headers.common['x-api-key'] =
+  'live_eDHiN2rSnzJuJSkEDuXXd7OxcJbeRLmSbUBm2vMfrnqK09NGtigSdKL615eDBnWv';
 import Notiflix from 'notiflix';
 import SlimSelect from 'slim-select';
+import 'slim-select/dist/slimselect.css';
 
 const breedSelectElement = document.querySelector('select.breed-select');
 const containerWithCatInfo = document.querySelector('.cat-info');
 const loadingMessage = document.querySelector('p.loader');
 const errorMessage = document.querySelector('.error');
-let select;
 
 window.addEventListener('load', () => {
   Notiflix.Loading.dots(loadingMessage.textContent, {
@@ -17,7 +19,7 @@ window.addEventListener('load', () => {
   fetchBreeds().then(breeds => {
     Notiflix.Loading.remove();
 
-    select = new SlimSelect({
+    new SlimSelect({
       select: breedSelectElement,
       data: breeds.map(breed => ({
         value: breed.id,
@@ -28,16 +30,17 @@ window.addEventListener('load', () => {
 });
 
 breedSelectElement.addEventListener('change', event => {
-  const breedId = event.currentTarget.value;
+  const breedId = event.target.value;
 
   fetchCatByBreed(breedId)
     .then(catData => {
+      const [cat] = catData;
       containerWithCatInfo.innerHTML = `
-        <img src="${catData.url}" alt="${catData.breeds[0].name}">
+        <img src="${cat.url}" alt="Picture of a cat :${cat.breeds[0].name}">
         <div class="characteristics">
-          <h2>${catData.breeds[0].name}</h2>
-          <p><strong>Opis:</strong> ${catData.breeds[0].description}</p>
-          <p><strong>Temperament:</strong> ${catData.breeds[0].temperament}</p>
+          <h2>${cat.breeds[0].name}</h2>
+          <p><strong>Description:</strong> ${cat.breeds[0].description}</p>
+          <p><strong>Temperament:</strong> ${cat.breeds[0].temperament}</p>
         </div>
       `;
     })
