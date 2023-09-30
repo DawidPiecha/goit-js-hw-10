@@ -1,0 +1,18 @@
+body {
+  background-size: cover;
+  background-attachment: fixed;
+  background-image: linear-gradient(to left, #00416a, #799f0c, #ffe000);
+  background-size: 200%;
+  animation: bg-animation 5s infinite alternate;
+}
+@keyframes bg-animation {
+  0% {
+    background-position: left;
+  }
+  100% {
+    background-position: right;
+  }
+}
+.hidden {
+  display: none;
+}
