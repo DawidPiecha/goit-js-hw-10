@@ -11,12 +11,15 @@ const containerWithCatInfo = document.querySelector('.cat-info');
 const loadingMessage = document.querySelector('p.loader');
 const errorMessage = document.querySelector('.error');
 
-window.addEventListener('load', () => {
+const onLoading = () => {
   Notiflix.Loading.dots(loadingMessage.textContent, {
     backgroundColor: 'rgba(0,0,0,0.8)',
     svgSize: '500px',
   });
+};
 
+window.addEventListener('load', () => {
+  onLoading();
   fetchBreeds()
     .then(breeds => {
       new SlimSelect({
@@ -35,10 +38,7 @@ window.addEventListener('load', () => {
 
 breedSelectElement.addEventListener('change', event => {
   const breedId = event.target.value;
-  Notiflix.Loading.dots(loadingMessage.textContent, {
-    backgroundColor: 'rgba(0,0,0,0.8)',
-    svgSize: '500px',
-  });
+  onLoading();
 
   fetchCatByBreed(breedId)
     .then(catData => {
