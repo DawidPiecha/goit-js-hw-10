@@ -14,12 +14,11 @@ const errorMessage = document.querySelector('.error');
 window.addEventListener('load', () => {
   Notiflix.Loading.dots(loadingMessage.textContent, {
     backgroundColor: 'rgba(0,0,0,0.8)',
-    svgSize: '200px',
+    svgSize: '800px',
   });
-  fetchBreeds().then(breeds => {
-    Notiflix.Loading.remove();
 
-    new SlimSelect({
+  fetchBreeds().then(breeds => {
+    const slimSelect = new SlimSelect({
       select: breedSelectElement,
       data: breeds.map(breed => ({
         value: breed.id,
@@ -31,9 +30,14 @@ window.addEventListener('load', () => {
 
 breedSelectElement.addEventListener('change', event => {
   const breedId = event.target.value;
+  Notiflix.Loading.dots(loadingMessage.textContent, {
+    backgroundColor: 'rgba(0,0,0,0.8)',
+    svgSize: '800px',
+  });
 
   fetchCatByBreed(breedId)
     .then(catData => {
+      Notiflix.Loading.remove();
       const [cat] = catData;
       containerWithCatInfo.innerHTML = `
         <img src="${cat.url}" alt="Picture of a cat :${cat.breeds[0].name}">
