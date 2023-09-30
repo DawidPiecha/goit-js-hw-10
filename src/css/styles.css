@@ -60,4 +60,8 @@ img {
   max-width: 1000px;
   margin-left: auto;
   margin-right: auto;
+  padding: 20px;
+  font-size: 30px;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  border: #f7797d 3px solid;
 }
