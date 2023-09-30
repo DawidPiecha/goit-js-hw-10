@@ -37,7 +37,7 @@ breedSelectElement.addEventListener('change', event => {
   const breedId = event.target.value;
   Notiflix.Loading.dots(loadingMessage.textContent, {
     backgroundColor: 'rgba(0,0,0,0.8)',
-    svgSize: '5px',
+    svgSize: '500px',
   });
 
   fetchCatByBreed(breedId)
