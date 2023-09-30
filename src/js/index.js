@@ -17,28 +17,34 @@ window.addEventListener('load', () => {
     svgSize: '800px',
   });
 
-  fetchBreeds().then(breeds => {
-    const slimSelect = new SlimSelect({
-      select: breedSelectElement,
-      data: breeds.map(breed => ({
-        value: breed.id,
-        text: breed.name,
-      })),
+  fetchBreeds()
+    .then(breeds => {
+      new SlimSelect({
+        select: breedSelectElement,
+        data: breeds.map(breed => ({
+          value: breed.id,
+          text: breed.name,
+        })),
+      });
+    })
+    .catch(error => {
+      console.log('fetchBreeds window-loading error:', error);
+      Notiflix.Notify.failure(errorMessage.textContent);
     });
-  });
 });
 
 breedSelectElement.addEventListener('change', event => {
   const breedId = event.target.value;
   Notiflix.Loading.dots(loadingMessage.textContent, {
     backgroundColor: 'rgba(0,0,0,0.8)',
-    svgSize: '800px',
+    svgSize: '5px',
   });
 
   fetchCatByBreed(breedId)
     .then(catData => {
       Notiflix.Loading.remove();
       const [cat] = catData;
+
       containerWithCatInfo.innerHTML = `
         <img src="${cat.url}" alt="Picture of a cat :${cat.breeds[0].name}">
         <div class="characteristics">
@@ -49,7 +55,7 @@ breedSelectElement.addEventListener('change', event => {
       `;
     })
     .catch(error => {
-      const errorMessageText = `${errorMessage.textContent} ${error}`;
-      Notiflix.Notify.failure(errorMessageText);
+      console.log('fetchBreedsById event error:', error);
+      Notiflix.Notify.failure(errorMessage.textContent);
     });
 });

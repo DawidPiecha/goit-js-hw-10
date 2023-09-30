@@ -11,7 +11,7 @@ const fetchBreeds = () => {
     .get(apiUrl)
     .then(response => {
       const data = response.data;
-
+      console.log('Dane wszystkich kotów:', data);
       return data;
     })
     .catch(error => {
@@ -25,7 +25,7 @@ const fetchCatByBreed = breedId => {
     .get(apiUrlWithId)
     .then(response => {
       const data = response.data;
-      console.log('Dane kota:', data);
+      console.log('Dane wybranego kota:', data);
       return data;
     })
     .catch(error => {
