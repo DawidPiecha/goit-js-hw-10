@@ -14,7 +14,7 @@ const errorMessage = document.querySelector('.error');
 window.addEventListener('load', () => {
   Notiflix.Loading.dots(loadingMessage.textContent, {
     backgroundColor: 'rgba(0,0,0,0.8)',
-    svgSize: '800px',
+    svgSize: '500px',
   });
 
   fetchBreeds()
@@ -43,6 +43,7 @@ breedSelectElement.addEventListener('change', event => {
   fetchCatByBreed(breedId)
     .then(catData => {
       Notiflix.Loading.remove();
+
       const [cat] = catData;
 
       containerWithCatInfo.innerHTML = `
